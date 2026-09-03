@@ -7,7 +7,7 @@ name = "lemonbeatd"
 version = "3.0.1"
 authors = ["Michael Zimmermann <michael.zimmermann@grandcentrix.net>"]
 edition = "2021"
-repository = "https://dev.azure.com/HQV-Gardena/SG-Gateway/_git/sg-lemonbeat-cargo"
+repository = "https://github.com/husqvarnagroup/smart-garden-gateway-lemonbeatd/"
 license = "GPL-3.0-or-later"
 rust-version = "1.75.0"
 
