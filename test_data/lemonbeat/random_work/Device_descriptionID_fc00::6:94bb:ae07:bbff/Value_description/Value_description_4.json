@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae07:bbff",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 4,
+	"lemonId" : "4",
+	"max" : 2,
+	"min" : 0,
+	"name" : "dripping_alert",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "9d31564e-d820-4c5a-85f3-757bcd557f0c",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

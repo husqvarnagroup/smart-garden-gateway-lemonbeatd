@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae1c:d4fb",
+	"format" : "hexbin",
+	"id" : 22,
+	"lemonId" : "22",
+	"max" : 0,
+	"min" : 0,
+	"name" : "starting_points",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "adc84672-3280-43f7-9b83-82118184e629",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

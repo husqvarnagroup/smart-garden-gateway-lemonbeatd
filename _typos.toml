@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[files]
+extend-exclude = [
+    "**/*.license",
+    "LICENSES/**",
+    "test_data/lemonbeat/random_work/**",
+    "third_party/**",
+]
+
+[default.extend-words]
+fot = "fot"
+inex = "inex"
+typ = "typ"
+
+[default]
+extend-ignore-re = [
+    "ICMPv6ND_RS.*",
+]

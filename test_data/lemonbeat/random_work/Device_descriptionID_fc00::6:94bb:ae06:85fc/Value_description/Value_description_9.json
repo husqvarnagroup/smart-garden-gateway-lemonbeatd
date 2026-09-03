@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae06:85fc",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 9,
+	"lemonId" : "9",
+	"max" : 10,
+	"min" : 0,
+	"name" : "outlet_pressure",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0.10000000149011612,
+	"type" : "General Purpose",
+	"unit" : "Bar",
+	"uuid" : "33b0bf31-7b98-4976-a26a-5401e5389a12",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

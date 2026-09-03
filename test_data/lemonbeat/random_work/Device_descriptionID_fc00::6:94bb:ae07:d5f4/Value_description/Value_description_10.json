@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:d5f4",
+	"format" : "number",
+	"id" : 10,
+	"lemonId" : "10",
+	"max" : 100,
+	"min" : 0,
+	"name" : "soil_humidity_raw_value",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "%",
+	"uuid" : "21030fb8-7b7b-4d57-9fac-df7af0da3b02",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

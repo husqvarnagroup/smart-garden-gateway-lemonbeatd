@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae03:d9fa",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 1,
+	"lemonId" : "1",
+	"max" : 100,
+	"min" : 0,
+	"name" : "battery_level",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "Power",
+	"unit" : "percent",
+	"uuid" : "561845c1-7bdb-45a5-8a48-9d574b647694",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

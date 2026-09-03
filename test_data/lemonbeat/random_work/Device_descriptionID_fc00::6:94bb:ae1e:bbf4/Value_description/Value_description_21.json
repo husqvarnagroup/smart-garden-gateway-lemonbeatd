@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae1e:bbf4",
+	"format" : "hexbin",
+	"id" : 21,
+	"lemonId" : "21",
+	"max" : 0,
+	"min" : 0,
+	"name" : "stm8_fw_version",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "e23bcd5b-f092-494c-b3c3-799b2fd0b4b6",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

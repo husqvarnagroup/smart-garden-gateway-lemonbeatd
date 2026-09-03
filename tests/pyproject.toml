@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[tool.poetry]
+name = "lemonbeatd-tests"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+crc = "^1.2"
+lemonbeat = { git = "git@ssh.dev.azure.com:v3/HQV-Gardena/SG-Embedded/sg-lemonbeat-python", rev = "5cfcc0b5fe2befd18a1fdbd80de9da338897e9f1" }
+lbfwimg = { path = "../lbfwimg" }
+scapy = "^2.5.0"
+pytest = "^6.2.5"
+pytest-rerunfailures = "^10.3"
+pytest-timeout = "^2.0.1"
+pytest-repeat = "^0.9.1"
+dbus-python = "^1.2.18"
+PyGObject = "^3.42.0"
+pytz = "^2024.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+log_cli_format = "%(asctime)s.%(msecs)03d %(levelname)s:%(name)s %(message)s"
+log_cli_level = "DEBUG"
+log_format = "%(asctime)s.%(msecs)03d %(levelname)s:%(name)s %(message)s"
+
+# Due to packet drops our tests are flaky in nature, there's nothing we can do
+# about it. So let's just set the timeout globally instead of polluting every
+# single test function with an attribute.
+timeout = 20
+
+# Otherwise this interferes with pytest-rerunfailures
+timeout_func_only = true

@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae07:bbff",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 7,
+	"lemonId" : "7",
+	"max" : 100,
+	"min" : 0,
+	"name" : "outlet_temperature_min",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "°C",
+	"uuid" : "19d6ef10-30ed-4c42-9159-7c413a85a8c3",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

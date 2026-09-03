@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae07:3af4",
+	"conf_id" : 0,
+	"format" : "hexbin",
+	"id" : 25,
+	"lemonId" : "25",
+	"max" : 0,
+	"min" : 0,
+	"name" : "schedule_state_control_shorten",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "4f60b273-8bcc-454a-ad89-d8bd7c68f8e9",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

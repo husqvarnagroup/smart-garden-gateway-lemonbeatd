@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae04:eef3",
+	"format" : "number",
+	"id" : 17,
+	"lemonId" : "17",
+	"max" : 65535,
+	"min" : 0,
+	"name" : "cutting_time",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "9db580d1-4858-43e9-b6c5-6458cfe4c2eb",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

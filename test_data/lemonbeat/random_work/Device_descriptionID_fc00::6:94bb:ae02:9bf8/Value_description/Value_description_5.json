@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae02:9bf8",
+	"format" : "number",
+	"id" : 5,
+	"lemonId" : "5",
+	"max" : 85,
+	"min" : -30,
+	"name" : "soil_temperature",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "C",
+	"uuid" : "daa873a9-1370-4a8a-920f-21dac2b6907c",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

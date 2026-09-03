@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[resolver]
+incompatible-rust-versions = "fallback"

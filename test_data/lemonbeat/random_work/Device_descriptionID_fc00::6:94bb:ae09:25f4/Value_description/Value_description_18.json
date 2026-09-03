@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae09:25f4",
+	"format" : "number",
+	"id" : 18,
+	"lemonId" : "18",
+	"max" : 65535,
+	"min" : 0,
+	"name" : "charging_cycles",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "f4f89893-d785-4539-a75a-a5705f77da07",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

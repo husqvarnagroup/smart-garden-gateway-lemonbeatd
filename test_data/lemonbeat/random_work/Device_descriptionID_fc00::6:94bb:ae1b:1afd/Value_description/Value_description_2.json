@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae1b:1afd",
+	"format" : "number",
+	"id" : 2,
+	"lemonId" : "2",
+	"max" : 100,
+	"min" : 0,
+	"name" : "rf_link_quality",
+	"permission" : "r",
+	"persistent" : 1,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "%",
+	"uuid" : "f1724ecf-e55c-47be-afac-2a7d380d22ff",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

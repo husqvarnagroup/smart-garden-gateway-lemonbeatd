@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae00:d6fb",
+	"format" : "number",
+	"id" : 27,
+	"lemonId" : "27",
+	"max" : 225,
+	"min" : -50,
+	"name" : "onboard_temperature",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0.10000000149011612,
+	"type" : "General Purpose",
+	"unit" : "°C",
+	"uuid" : "a81122d4-a769-4dad-8521-782370d7baa1",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

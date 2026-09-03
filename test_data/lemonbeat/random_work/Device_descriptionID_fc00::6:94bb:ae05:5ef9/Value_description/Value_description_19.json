@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae05:5ef9",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 19,
+	"lemonId" : "19",
+	"max" : 65535,
+	"min" : 0,
+	"name" : "cutting_time",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "no unit",
+	"uuid" : "aa3561c8-3a37-4ab5-a179-4894d6789df8",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

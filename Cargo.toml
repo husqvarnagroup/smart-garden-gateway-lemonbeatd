@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[package]
+name = "lemonbeatd"
+version = "3.0.1"
+authors = ["Michael Zimmermann <michael.zimmermann@grandcentrix.net>"]
+edition = "2021"
+repository = "https://dev.azure.com/HQV-Gardena/SG-Gateway/_git/sg-lemonbeat-cargo"
+license = "GPL-3.0-or-later"
+rust-version = "1.75.0"
+
+[lib]
+name = "lemonbeatd"
+
+[[bin]]
+name = "lemonbeatd"
+path = "bin/main.rs"
+
+[features]
+max_level_off = ["log/max_level_off", "tracing/max_level_off"]
+max_level_error = ["log/max_level_error", "tracing/max_level_error"]
+max_level_warn = ["log/max_level_warn", "tracing/max_level_warn"]
+max_level_info = ["log/max_level_info", "tracing/max_level_info"]
+max_level_debug = ["log/max_level_debug", "tracing/max_level_debug"]
+max_level_trace = ["log/max_level_trace", "tracing/max_level_trace"]
+
+release_max_level_off = ["log/release_max_level_off", "tracing/release_max_level_off"]
+release_max_level_error = ["log/release_max_level_error", "tracing/release_max_level_error"]
+release_max_level_warn = ["log/release_max_level_warn", "tracing/release_max_level_warn"]
+release_max_level_info = ["log/release_max_level_info", "tracing/release_max_level_info"]
+release_max_level_debug = ["log/release_max_level_debug", "tracing/release_max_level_debug"]
+release_max_level_trace = ["log/release_max_level_trace", "tracing/release_max_level_trace"]
+
+tokio_tracing = ["tokio/tracing"]
+
+[dependencies]
+aes = "0.7" # upgrade non-trivial, ecb block mode no longer supported
+anyhow = "1.0"
+approx = "0.5"
+argh = "0.1"
+async-io = "2.4.0"
+async-trait = "0.1"
+bitflags = "2.7.0"
+block-modes = "0.8" # upgrade non-trivial, ecb block mode no longer supported
+byteorder = "1.4"
+bytes = "1.0"
+chrono = "= 0.4.19"# https://jira-husqvarna.riada.se/browse/SG-19164
+crc = "3.0.0"
+dbus = "0.9"
+dbus-tokio = "0.7"
+derive_more = { version = "1.0.0", features = ["debug"] }
+futures = "0.3"
+futures-core = "0.3"
+futures-sink = "0.3"
+futures-util = { version = "0.3", features = ["sink"] }
+gardenalog = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+hex = { version = "0.4", features = ["serde"] }
+humantime-serde = "1.1"
+itertools = "0.14.0"
+lazy_static = "1.4"
+libc = "0.2"
+log = "=0.4.21"
+lsdl = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+lwm2m = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+lwm2m-types = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+macaddr = "1.0"
+nix = { git = "https://github.com/husqvarnagroup/nix.git", branch = "gardena/master" }
+num-bigint = "0.4"
+num-derive = "0.4"
+num-traits = "0.2"
+quick-xml = "0.23"
+rand = "0.8"
+regex = "1.7.3"
+rpc-mpsc = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+rsa = "0.9.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+sg-ipc = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+sha2 = "0.10"
+single-trait-impl = "0.2.0"
+systemd-async = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+thiserror = "2.0"
+tokio = { version = "1.43.0", features = ["fs", "io-util", "macros", "net", "parking_lot", "process", "rt-multi-thread", "time"] }
+tokio-task-rpc = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+tokio-task-rpc-util = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+tokio-util = { version = "0.7", features = ["codec", "net"] }
+tokioutil = { git = "https://github.com/husqvarnagroup/smart-garden-gateway-crates.git" }
+tracing = "0.1"
+version-compare = "0.2.0"
+
+[dev-dependencies]
+rstest = "0.24.0"
+tempfile = "3.2"
+test-log = { version = "0.2", features = ["trace"] }
+
+[build-dependencies]
+anyhow = "1.0"
+hex = "0.4"
+
+[profile.release]
+lto = true
+opt-level = "z"
+codegen-units = 1

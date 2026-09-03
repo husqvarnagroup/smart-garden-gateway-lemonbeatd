@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae07:83fe",
+	"conf_id" : -666666,
+	"format" : "number",
+	"id" : 5,
+	"lemonId" : "5",
+	"max" : 200000,
+	"min" : 0,
+	"name" : "light",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "Luminance",
+	"unit" : "lx",
+	"uuid" : "f5a1a73c-0866-433f-ba47-b3270dec5fb7",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

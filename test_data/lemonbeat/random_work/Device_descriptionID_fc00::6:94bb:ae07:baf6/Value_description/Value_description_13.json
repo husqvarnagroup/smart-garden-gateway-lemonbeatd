@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:baf6",
+	"format" : "number",
+	"id" : 13,
+	"lemonId" : "13",
+	"max" : 1,
+	"min" : 0,
+	"name" : "pump_on_off",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "132510b6-06b7-4958-b3b2-cd5480073064",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

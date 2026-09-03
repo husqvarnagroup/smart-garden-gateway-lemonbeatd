@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae18:9ef4",
+	"format" : "number",
+	"id" : 3,
+	"lemonId" : "3",
+	"max" : 36000,
+	"min" : -36000,
+	"name" : "watering_timer_1",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "seconds",
+	"uuid" : "9adaceb3-baee-4ec9-bf5f-59cc44599f4e",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

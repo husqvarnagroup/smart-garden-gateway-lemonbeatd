@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae07:bbff",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 5,
+	"lemonId" : "5",
+	"max" : 16777215,
+	"min" : 0,
+	"name" : "flow_since_last_reset",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "m³",
+	"uuid" : "a87669d4-5c3d-45aa-bb77-b18363385ad4",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}
