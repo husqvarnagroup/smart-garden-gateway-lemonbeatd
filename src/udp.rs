@@ -1,12 +1,11 @@
 // SPDX-FileCopyrightText: GARDENA GmbH
+// SPDX-FileCopyrightText: Tokio Contributors
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-//! Modified version of `tokio-util/src/udp/frame.rs`
+//! Modified version of `tokio-util/src/udp/frame.rs`, licensed under MIT (LICENSES/MIT.txt).
+//! Source: https://raw.githubusercontent.com/tokio-rs/tokio/8198ef38814c45f9dc02fcbf826225b5cf32a6bb/tokio-util/src/udp/frame.rs
 //!
-//! See LICENSE.tokio for licensing information.
-//!
-//! See the git log for the exact revision that this is based on.
 //! We moved away from AsyncFd due to a [bug](https://github.com/tokio-rs/tokio/issues/4349)
 //! that prevents reacting on polling errors.
 
