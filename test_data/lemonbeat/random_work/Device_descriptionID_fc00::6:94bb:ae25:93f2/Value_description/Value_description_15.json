@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae25:93f2",
+	"format" : "number",
+	"id" : 15,
+	"lemonId" : "15",
+	"max" : 86400,
+	"min" : 10,
+	"name" : "measurement_interval",
+	"permission" : "rw",
+	"persistent" : 1,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "seconds",
+	"uuid" : "ac20448a-4aff-42a6-a035-961b07366881",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

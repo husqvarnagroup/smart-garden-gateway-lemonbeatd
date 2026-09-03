@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:63fe",
+	"format" : "hexbin",
+	"id" : 11,
+	"lemonId" : "11",
+	"max" : 0,
+	"min" : 0,
+	"name" : "schedule_state_control_skip",
+	"permission" : "rw",
+	"persistent" : 1,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "bb6fb1e4-bcf2-47e4-b328-f49c5fda5f91",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

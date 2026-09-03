@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae18:9ef4",
+	"format" : "number",
+	"id" : 11,
+	"lemonId" : "11",
+	"max" : 1,
+	"min" : 0,
+	"name" : "master_valve_active",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "82e5a9c1-2449-4be4-8d5f-4c3cd9305d38",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

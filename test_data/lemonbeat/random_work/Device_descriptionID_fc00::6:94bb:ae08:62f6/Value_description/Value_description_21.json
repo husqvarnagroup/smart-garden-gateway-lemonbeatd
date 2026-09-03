@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae08:62f6",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 21,
+	"lemonId" : "21",
+	"max" : 65535,
+	"min" : 0,
+	"name" : "collisions",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "no unit",
+	"uuid" : "6c2c8204-6c2b-4649-9878-8bbef0528355",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

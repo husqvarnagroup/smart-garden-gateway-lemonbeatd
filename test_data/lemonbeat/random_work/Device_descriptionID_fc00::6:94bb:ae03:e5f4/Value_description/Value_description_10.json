@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae03:e5f4",
+	"format" : "number",
+	"id" : 10,
+	"lemonId" : "10",
+	"max" : 59999,
+	"min" : 0,
+	"name" : "start_delay_ms",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "ms",
+	"uuid" : "bbb8c6f7-5f69-49f2-a3f4-5b69061b89d3",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

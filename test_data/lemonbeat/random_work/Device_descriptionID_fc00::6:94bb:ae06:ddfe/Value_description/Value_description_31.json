@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae06:ddfe",
+	"format" : "hexbin",
+	"id" : 31,
+	"lemonId" : "31",
+	"max" : 0,
+	"min" : 0,
+	"name" : "action_paused_until_5",
+	"permission" : "rw",
+	"persistent" : 1,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "3cce0e97-5350-4ef4-ab70-68f05b89c42a",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

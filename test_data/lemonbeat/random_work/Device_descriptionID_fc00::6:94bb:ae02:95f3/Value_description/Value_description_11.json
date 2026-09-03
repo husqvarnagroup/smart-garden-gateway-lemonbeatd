@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae02:95f3",
+	"conf_id" : -666666,
+	"format" : "number",
+	"id" : 11,
+	"lemonId" : "11",
+	"max" : 60,
+	"min" : 0,
+	"name" : "button_manual_override_time",
+	"permission" : "rw",
+	"persistent" : 1,
+	"step" : 1,
+	"type" : "Time",
+	"unit" : "min",
+	"uuid" : "8a7c6aa5-9e98-41a5-8d5d-d431ce717cdb",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

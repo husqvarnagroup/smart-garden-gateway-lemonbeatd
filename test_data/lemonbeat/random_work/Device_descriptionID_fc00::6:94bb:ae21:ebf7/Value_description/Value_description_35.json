@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae21:ebf7",
+	"format" : "hexbin",
+	"id" : 35,
+	"lemonId" : "35",
+	"max" : 0,
+	"min" : 0,
+	"name" : "valve_name_3",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "7f8a8967-a096-4110-befd-4a4bbfb8d003",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

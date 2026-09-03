@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae05:ccf0",
+	"conf_id" : -666666,
+	"format" : "number",
+	"id" : 26,
+	"lemonId" : "26",
+	"max" : 3,
+	"min" : 1,
+	"name" : "supported_starting_points",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "no unit",
+	"uuid" : "6bcf06e0-588d-4e47-a724-97db6b9d83c1",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae09:e1f4",
+	"format" : "number",
+	"id" : 8,
+	"lemonId" : "8",
+	"max" : 200000,
+	"min" : 0,
+	"name" : "light",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "lx",
+	"uuid" : "20372305-a1b3-4387-88d6-d02f8cc39784",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

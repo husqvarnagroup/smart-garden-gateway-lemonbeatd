@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae1c:d4fb",
+	"format" : "string",
+	"id" : 12,
+	"lemonId" : "12",
+	"max" : 10,
+	"min" : 0,
+	"name" : "mmi_version",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "8c889e29-b925-4933-99f4-98002444d733",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

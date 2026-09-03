@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae05:ccf0",
+	"conf_id" : -666666,
+	"format" : "hexbin",
+	"id" : 12,
+	"lemonId" : "12",
+	"max" : 0,
+	"min" : 0,
+	"name" : "week_timer",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "d7991c5b-41eb-4bd1-8e23-06d4cf550b2a",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae03:defd",
+	"format" : "number",
+	"id" : 23,
+	"lemonId" : "23",
+	"max" : 255,
+	"min" : 0,
+	"name" : "supported_wires",
+	"permission" : "r",
+	"persistent" : 1,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "8644f8b6-1099-4d3d-959a-637e22d5cc3c",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

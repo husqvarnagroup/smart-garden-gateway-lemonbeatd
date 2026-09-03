@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae01:79f9",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 8,
+	"lemonId" : "8",
+	"max" : 2,
+	"min" : 0,
+	"name" : "rf_link_state",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "Operation Mode",
+	"unit" : "no unit",
+	"uuid" : "2a8978ba-aa9d-4fb5-8ba2-ac205a005662",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

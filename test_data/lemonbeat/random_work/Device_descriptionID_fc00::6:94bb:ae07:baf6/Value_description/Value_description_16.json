@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:baf6",
+	"format" : "number",
+	"id" : 16,
+	"lemonId" : "16",
+	"max" : 4,
+	"min" : 0,
+	"name" : "pump_state",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "164906e7-42bd-4cfa-adf7-a9917e4e965c",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

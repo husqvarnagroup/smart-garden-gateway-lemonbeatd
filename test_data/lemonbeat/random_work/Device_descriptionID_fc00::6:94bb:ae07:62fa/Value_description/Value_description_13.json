@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:62fa",
+	"format" : "number",
+	"id" : 13,
+	"lemonId" : "13",
+	"max" : 3600,
+	"min" : 1,
+	"name" : "be_decision_time",
+	"permission" : "rw",
+	"persistent" : 1,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "s",
+	"uuid" : "f2718f2c-c468-43f3-b3f8-f027449314e4",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

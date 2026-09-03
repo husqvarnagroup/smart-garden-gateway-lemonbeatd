@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[advisories]
+ignore = [
+    # chrono: unable to upgrade until https://github.com/chronotope/chrono/pull/1457 gets merged
+    "RUSTSEC-2020-0159",
+    "RUSTSEC-2020-0071",
+    # rsa: unable to upgrade as ECB is required
+    "RUSTSEC-2023-0071",
+    # quick-xml: not critical as we trust our XMLs
+    "RUSTSEC-2026-0194",
+    "RUSTSEC-2026-0195"
+]

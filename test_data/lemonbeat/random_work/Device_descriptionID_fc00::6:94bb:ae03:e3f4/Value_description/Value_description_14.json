@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae03:e3f4",
+	"format" : "string",
+	"id" : 14,
+	"lemonId" : "14",
+	"max" : 4,
+	"min" : 0,
+	"name" : "device_type",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "fa2eda4c-7df9-408d-8f22-7dbef0a74748",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

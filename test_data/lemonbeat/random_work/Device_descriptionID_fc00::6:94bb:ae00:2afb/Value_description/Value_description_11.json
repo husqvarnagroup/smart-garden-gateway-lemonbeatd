@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae00:2afb",
+	"format" : "number",
+	"id" : 11,
+	"lemonId" : "11",
+	"max" : 65000,
+	"min" : 0,
+	"name" : "start_override_time",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "Time",
+	"unit" : "min",
+	"uuid" : "23d570fc-9f1a-497f-923b-32e81a3db90a",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

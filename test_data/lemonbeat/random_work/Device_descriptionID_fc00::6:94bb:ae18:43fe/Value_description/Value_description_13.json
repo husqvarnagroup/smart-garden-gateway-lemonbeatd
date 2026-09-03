@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae18:43fe",
+	"format" : "number",
+	"id" : 13,
+	"lemonId" : "13",
+	"max" : 6,
+	"min" : 0,
+	"name" : "valve_error_0",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "591554ce-2662-4e90-bfff-2294d551a3f9",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

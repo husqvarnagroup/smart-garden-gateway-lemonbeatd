@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:baf6",
+	"format" : "number",
+	"id" : 3,
+	"lemonId" : "3",
+	"max" : 2.7999999523162842,
+	"min" : 2,
+	"name" : "turn_on_pressure",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0.20000000298023224,
+	"type" : "General Purpose",
+	"unit" : "Bar",
+	"uuid" : "314b7ffa-b8e3-4284-bf3c-0a76ccfd353d",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

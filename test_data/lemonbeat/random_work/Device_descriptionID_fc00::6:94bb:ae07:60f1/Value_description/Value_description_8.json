@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:60f1",
+	"format" : "hexbin",
+	"id" : 8,
+	"lemonId" : "8",
+	"max" : 0,
+	"min" : 0,
+	"name" : "sun_data",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "5457fa34-29fa-4a9f-bdc8-3b6af62f74d7",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

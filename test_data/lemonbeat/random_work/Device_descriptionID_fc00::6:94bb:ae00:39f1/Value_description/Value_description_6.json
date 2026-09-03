@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae00:39f1",
+	"conf_id" : 0,
+	"format" : "number",
+	"id" : 6,
+	"lemonId" : "6",
+	"max" : 37,
+	"min" : 1,
+	"name" : "command",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "Program",
+	"unit" : "no unit",
+	"uuid" : "947968f3-a6ac-4567-8766-e394c1ea288b",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

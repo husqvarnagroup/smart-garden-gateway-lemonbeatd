@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+/target
+/work
+/.idea
+/tests/.venv
+/super-linter.log

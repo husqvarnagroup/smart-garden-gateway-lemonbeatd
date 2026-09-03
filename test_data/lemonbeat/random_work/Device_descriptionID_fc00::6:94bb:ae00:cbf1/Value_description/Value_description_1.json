@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae00:cbf1",
+	"format" : "hexbin",
+	"id" : 1,
+	"lemonId" : "1",
+	"max" : 0,
+	"min" : 0,
+	"name" : "Mac Sequence Count",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "Counter",
+	"unit" : "",
+	"uuid" : "f844d0e3-a0a1-4f73-851c-f6ce37be6c1d",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

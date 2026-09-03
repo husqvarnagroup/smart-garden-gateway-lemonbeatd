@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae07:7dfb",
+	"format" : "number",
+	"id" : 6,
+	"lemonId" : "6",
+	"max" : 16777216,
+	"min" : -16777215,
+	"name" : "power_timer",
+	"permission" : "rw",
+	"persistent" : 1,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "s",
+	"uuid" : "c6eabfe8-0c14-4f60-8417-044af49ce78f",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}
