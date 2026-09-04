@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae25:26f4",
+	"format" : "hexbin",
+	"id" : 14,
+	"lemonId" : "14",
+	"max" : 0,
+	"min" : 0,
+	"name" : "soil_type_determination_result_3",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "2bbccc64-3195-4b9d-9b1d-071d0a0320fd",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

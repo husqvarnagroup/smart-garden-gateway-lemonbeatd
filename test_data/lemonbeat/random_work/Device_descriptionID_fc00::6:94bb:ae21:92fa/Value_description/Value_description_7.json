@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae21:92fa",
+	"format" : "number",
+	"id" : 7,
+	"lemonId" : "7",
+	"max" : 1,
+	"min" : 0,
+	"name" : "frost_warning",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "3d1d1a0f-c704-40c3-9a49-333c454ceda0",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

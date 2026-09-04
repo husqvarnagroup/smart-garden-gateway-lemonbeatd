@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae21:adf9",
+	"format" : "number",
+	"id" : 2,
+	"lemonId" : "2",
+	"max" : 100,
+	"min" : 0,
+	"name" : "battery_level",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "%",
+	"uuid" : "01aef765-2c37-4dc8-860e-c94ef478c7c9",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae05:5ef9",
+	"conf_id" : 0,
+	"format" : "hexbin",
+	"id" : 8,
+	"lemonId" : "8",
+	"max" : 0,
+	"min" : 0,
+	"name" : "override_end_time",
+	"permission" : "r",
+	"persistent" : 1,
+	"step" : 0,
+	"type" : "Time",
+	"unit" : "",
+	"uuid" : "d967adbb-92a1-448b-aae9-8cf418f3f9a4",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

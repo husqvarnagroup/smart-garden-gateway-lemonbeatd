@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae07:26f2",
+	"conf_id" : -666666,
+	"format" : "number",
+	"id" : 7,
+	"lemonId" : "7",
+	"max" : 1,
+	"min" : 0,
+	"name" : "valve_open",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "On/Off",
+	"unit" : "no unit",
+	"uuid" : "4877f4e3-cba9-4b6c-a0a4-147d420a4c9b",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

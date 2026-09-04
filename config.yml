@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+---
+#error_timeout_interval: 900s
+#gotosleep_duration: 20s
+#gotosleep_duration_fota: 100s
+#fota_min_wait: 1s
+#send_message_timeout: 2s
+#request_default_timeout: 2s

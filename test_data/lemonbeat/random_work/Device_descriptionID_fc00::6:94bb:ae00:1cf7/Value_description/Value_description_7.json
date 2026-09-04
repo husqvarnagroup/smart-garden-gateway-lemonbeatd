@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae00:1cf7",
+	"format" : "number",
+	"id" : 7,
+	"lemonId" : "7",
+	"max" : 36000,
+	"min" : 0,
+	"name" : "button_config_time",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "s",
+	"uuid" : "c06b81b5-95b8-4c96-a47f-cc85b96c8918",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

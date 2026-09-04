@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae04:4ff1",
+	"conf_id" : 0,
+	"format" : "string",
+	"id" : 15,
+	"lemonId" : "15",
+	"max" : 10,
+	"min" : 0,
+	"name" : "comboard_version",
+	"permission" : "r",
+	"persistent" : 1,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "174ba1f2-d767-4a2d-be47-e513a36967c5",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

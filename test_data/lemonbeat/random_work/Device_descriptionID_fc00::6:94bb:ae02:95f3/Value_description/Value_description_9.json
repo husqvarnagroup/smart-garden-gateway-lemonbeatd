@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae02:95f3",
+	"conf_id" : -666666,
+	"format" : "number",
+	"id" : 9,
+	"lemonId" : "9",
+	"max" : 1,
+	"min" : 0,
+	"name" : "manual_override",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "Operation Mode",
+	"unit" : "no unit",
+	"uuid" : "8f44e562-049d-49b9-b43a-799eecbfdc88",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

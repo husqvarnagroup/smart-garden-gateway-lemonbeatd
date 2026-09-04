@@ -1,0 +1,63 @@
+#!/bin/bash
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# setup testing environment
+#
+# You could use container runtimes like podman for this but we don't want/need
+# a different rootfs, we just want a separate network namespace.
+set -euo pipefail
+
+inside="${INSIDE:-0}"
+script=$(readlink -f "$0")
+scriptdir=$(dirname "$script")
+testsdir=$(realpath "$scriptdir/../")
+gimmeroot=${CI_GIMMEROOT:-}
+shellonly=${SHELL_ONLY:-}
+
+if [ "$USER" == "root" ] && [ "$gimmeroot" != 1 ]; then
+    echo "don't run this as root, it's not needed anymore and could damage your system" >&2
+    exit 1
+fi
+
+if [ "$inside" == "1" ]; then
+    unset INSIDE
+
+    cd "$testsdir"
+
+    # we need dbus for systemd-timesyncd emulation
+    if [ -f '/tmp/lbtest_dbus' ]; then
+        rm /tmp/lbtest_dbus
+    fi
+
+    dbus-daemon --session --nopidfile --nofork --address unix:path=/tmp/lbtest_dbus &
+
+    # Source: https://unix.stackexchange.com/a/185370
+    while read -r i; do if [ "$i" = "lbtest_dbus" ]; then break; fi; done \
+       < <(inotifywait  -e create,open --format '%f' --quiet /tmp --monitor)
+
+    # to make it use our emulated systemd-timesyncd
+    export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/tmp/lbtest_dbus
+    # so we can change it's timezone
+    export TZ=/tmp/lbtest_localtime
+
+    if [ "$shellonly" == 1 ]; then
+        bash "$@"
+    else
+        timeout -s INT 10m poetry run pytest "$@"
+    fi
+
+else
+    INSIDE=1 \
+    exec bwrap \
+        --dev-bind / / \
+        --proc /proc \
+        --tmpfs /run/netns \
+        --tmpfs /root \
+        --tmpfs /tmp \
+        --unshare-all \
+        --cap-add ALL \
+        --die-with-parent \
+            "$script" "$@"
+fi

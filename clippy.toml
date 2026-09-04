@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+avoid-breaking-exported-api = false

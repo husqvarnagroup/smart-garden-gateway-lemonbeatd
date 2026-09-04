@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae01:7bfc",
+	"format" : "number",
+	"id" : 4,
+	"lemonId" : "4",
+	"max" : 85,
+	"min" : -30,
+	"name" : "ambient_temperature",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "C",
+	"uuid" : "bd663275-2c07-47a6-9883-31f8822b8f62",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

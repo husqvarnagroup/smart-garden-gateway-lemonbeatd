@@ -1,0 +1,18 @@
+{
+	"address" : "fc00::6:94bb:ae04:fdfb",
+	"format" : "number",
+	"id" : 8,
+	"lemonId" : "8",
+	"max" : 16777216,
+	"min" : -16777215,
+	"name" : "mower_timer",
+	"permission" : "rw",
+	"persistent" : 0,
+	"step" : 1,
+	"type" : "General Purpose",
+	"unit" : "s",
+	"uuid" : "6dab2b63-2155-4fae-9c75-7ef219ee482f",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

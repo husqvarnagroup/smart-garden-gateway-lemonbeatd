@@ -1,0 +1,19 @@
+{
+	"address" : "fc00::6:94bb:ae09:c0f0",
+	"conf_id" : 0,
+	"format" : "hexbin",
+	"id" : 2,
+	"lemonId" : "2",
+	"max" : 0,
+	"min" : 0,
+	"name" : "fatal_error_log",
+	"permission" : "r",
+	"persistent" : 0,
+	"step" : 0,
+	"type" : "General Purpose",
+	"unit" : "",
+	"uuid" : "3ac53500-0c6c-4db0-9580-2fa6f87061d2",
+	"uuid_value" : "",
+	"value" : "",
+	"virtual_value" : false
+}

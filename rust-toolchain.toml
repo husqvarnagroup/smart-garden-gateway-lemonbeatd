@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[toolchain]
+channel = "1.75.0"
+profile = "minimal"
+components = ["clippy", "rustfmt"]
