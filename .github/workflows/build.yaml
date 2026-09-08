@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2026 Reto Schneider
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: Build project
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Compile and test
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Install system dependencies
+        run: >
+          sudo apt update
+          && sudo apt install --yes --no-install-recommends
+          cmake
+          libdbus-1-dev
+          pkg-config
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build
+        run: cargo build --verbose
+      - name: Run tests
+        run: cargo test --verbose
