@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2026 Reto Schneider
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: Check compliance
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  reuse:
+    name: REUSE
+    runs-on: ubuntu-24.04
+    steps:
+      - name: REUSE compliance check
+        uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6.0.0
