@@ -21,6 +21,9 @@ jobs:
   build:
     name: Compile and test
     runs-on: ubuntu-26.04
+    strategy:
+      matrix:
+        rust: ["1.75", "1.94"]  # Rust versions for Yocto Scarthgap and Wrynose
     steps:
       - name: Install system dependencies
         run: >
@@ -40,6 +43,11 @@ jobs:
         run: cargo build --verbose
       - name: Unit tests
         run: cargo test --verbose
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Check Rust format
+        run: cargo fmt --all -- --check
+
 
   lint:
     runs-on: ubuntu-26.04
@@ -54,16 +62,10 @@ jobs:
       - name: Install cargo binstall
         run: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 
-      - name: Check Rust format
-        run: cargo fmt --all -- --check
-
       - name: Check Cargo.toml format
         run: |
           cargo binstall cargo-sort@1.0.9 --no-confirm --disable-strategies compile
           cargo sort --check --check-format --workspace
-
-      - name: Clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Find typos
         run: |
