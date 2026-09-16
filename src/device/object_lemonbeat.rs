@@ -93,7 +93,7 @@ impl lwm2m::Object for LemonbeatHandler<'_> {
         Ok((data, Some(timestamp)).into())
     }
 
-    // XXX: This implementation is very ineffecient and kinda backwards, but it
+    // XXX: This implementation is very inefficient and kinda backwards, but it
     //      allows us to reduce copy&paste a lot. It's a little sad because
     //      this variant is called more often than `handle_partial_write`.
     async fn write_resource(

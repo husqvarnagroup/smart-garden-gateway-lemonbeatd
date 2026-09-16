@@ -44,6 +44,6 @@ repos:
       - id: gitleaks-docker
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.11.4
+    rev: v1.50.2
     hooks:
       - id: typos
