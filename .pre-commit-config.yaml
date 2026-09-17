@@ -23,12 +23,12 @@ repos:
       - id: cargo-check
 
   - repo: https://github.com/ambv/black
-    rev: 22.6.0
+    rev: 26.5.1
     hooks:
       - id: black
 
   - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 7.3.0
     hooks:
       - id: flake8
         args: [--config, tests/.flake8]
@@ -44,6 +44,6 @@ repos:
       - id: gitleaks-docker
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.11.4
+    rev: v1.50.2
     hooks:
       - id: typos

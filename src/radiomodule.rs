@@ -170,7 +170,7 @@ pub async fn get_rm_mac() -> Result<macaddr::MacAddr6, crate::Error> {
 }
 
 // Note: sock_task and sock_client_task are meant for forwarding
-// external requsets to the radio module (which can handle only one
+// external requests to the radio module (which can handle only one
 // TCP connection at a time), such as wakeup requests from the LWM2M
 // server. The request & response format for external requests via the
 // Unix socket is identical to the format of requests made via the TCP

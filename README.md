@@ -8,22 +8,21 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 ## Prerequisites
 
+### Build
+
 1. Install [rustup](https://rustup.rs). This will then automatically install the required toolchain.
-2. Initialize and update git submodules
+
+2. Install build dependencies
 
     ```bash
-    git submodule update --init
+    sudo apt install cmake libdbus-1-dev pkg-config
     ```
 
-3. Install dependencies
+### Run
 
-    ```bash
-    sudo apt install libdbus-1-dev libgirepository1.0-dev cmake ntp libcairo2-dev
-    ```
-
-4. Make sure that ntpd is running and listening on the ppp0 interface if devices
+1. Make sure that ntpd is installed, running and listening on the ppp0 interface if devices
    should sync their clocks
-5. [BNW Lemonbeat Dongle](https://confluence-husqvarna.riada.se/x/VSBNDQ). Best to
+2. [BNW Lemonbeat Dongle](https://confluence-husqvarna.riada.se/x/VSBNDQ). Best to
    [set up udev rules](https://confluence-husqvarna.riada.se/x/VyBNDQ) to have
    `/dev/bnw-gateway-dongle-ppp` automatically created when dongle is connected.
    Be sure to define a high priority in the rules name, like `/etc/udev/rules.d/99-local.rules`
