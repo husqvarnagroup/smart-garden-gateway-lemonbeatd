@@ -5,5 +5,5 @@
 /target
 /work
 /.idea
+/tests/.idea
 /tests/.venv
-/super-linter.log
