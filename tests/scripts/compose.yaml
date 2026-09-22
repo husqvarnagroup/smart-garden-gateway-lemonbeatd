@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2026 GARDENA GmbH
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+services:
+  component-tests:
+    build: .
+    entrypoint: /workdir/tests/scripts/entrypoint.sh
+    volumes:
+      - /dev:/dev
+      - "${PWD}:/workdir"
+    working_dir: /
+    tmpfs:
+      - /tmp
+    security_opt:
+      - label=apparmor:unconfined
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_ADMIN
+    
+
+ 

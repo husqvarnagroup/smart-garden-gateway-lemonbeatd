@@ -11,31 +11,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 For Ubuntu:
 
 ```bash
-apt install bubblewrap inotify-tools
-```
-
-## AppArmor Rule
-
-From Ubuntu 24.04 onwards a rule for AppArmor to allow `bwrap` is needed.
-
-Add the file `/etc/apparmor.d/bwrap` with the content:
-
-```text
-abi <abi/4.0>,
-include <tunables/global>
-
-profile bwrap /usr/bin/bwrap flags=(unconfined) {
-  userns,
-
-  # Site-specific additions and overrides. See local/README for details.
-  include if exists <local/bwrap>
-}
-```
-
-Then run:
-
-```bash
-systemctl reload apparmor
+apt install docker-ce docker-compose
 ```
 
 ## Current directory
@@ -56,6 +32,7 @@ poetry install
 
 ## Usage (`run_ci`)
 
+TODO Fix readme!
 You can use the pytest wrapper with the same arguments as pytest itself.
 All it does is setup an environment for pytest to test in.
 
