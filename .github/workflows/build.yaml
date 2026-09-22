@@ -55,18 +55,14 @@ jobs:
 
   component_tests:
     name: Component Tests
-    runs-on: ubuntu-24.04 # older Ubuntu due to compatibility of dependencies
+    runs-on: ubuntu-26.04
     steps:
       - name: Install system dependencies
         run: |
           sudo apt update \
           && sudo apt install --yes --no-install-recommends \
             bubblewrap \
-            inotify-tools \
-            libdbus-1-dev \
-            libcairo2-dev \
-            libgirepository-1.0-dev \
-            pkg-config
+            inotify-tools
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -82,10 +78,8 @@ jobs:
         run: cargo build --verbose
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: 3.11.9 # pinned due to compatibility of dependencies and of Ubuntu 24.04
+          python-version: 3.14
           update-environment: true
-      - name: Pin pip # pinned due to compatibility of dependencies and of Ubuntu 24.04
-        run: python -m pip install --disable-pip-version-check "pip==24.0"
       - uses: abatilo/actions-poetry@3765cf608f2d4a72178a9fc5b918668e542b89b1 # v4.0.0
         with:
           poetry-version: 2.5.1
