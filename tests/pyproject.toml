@@ -21,8 +21,7 @@ pytest = "^6.2.5"
 pytest-rerunfailures = "^10.3"
 pytest-timeout = "^2.0.1"
 pytest-repeat = "^0.9.1"
-dbus-python = "^1.2.18"
-PyGObject = "^3.42.0"
+dbus-next = "^0.2.3"
 pytz = "^2024.2"
 setuptools = "<78" # needs to be pinned for CI on GitHub actions
 

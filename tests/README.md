@@ -11,7 +11,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 For Ubuntu:
 
 ```bash
-apt install bubblewrap libgirepository-1.0-dev inotify-tools
+apt install bubblewrap inotify-tools
 ```
 
 ## AppArmor Rule
