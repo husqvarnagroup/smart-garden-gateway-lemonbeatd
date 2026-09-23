@@ -46,7 +46,7 @@ jobs:
             include if exists <local/bwrap>
           }
           EOF
-          sudo systemctl reload apparmor
+          sudo apparmor_parser -r /etc/apparmor.d/bwrap
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -82,4 +82,3 @@ jobs:
         run: |
           sudo sysctl kernel.apparmor_restrict_unprivileged_userns || true
           sudo dmesg --ctime | grep -i apparmor || echo "no apparmor lines in dmesg"
-
