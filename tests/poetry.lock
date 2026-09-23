@@ -134,9 +134,9 @@ test = ["ipython (>=7.29.0,<7.30.0)", "pytest (>=6.2.5,<6.3.0)", "pytest-cov (>=
 
 [package.source]
 type = "git"
-url = "ssh://git@ssh.dev.azure.com/v3/HQV-Gardena/SG-Embedded/sg-lemonbeat-python"
-reference = "5cfcc0b5fe2befd18a1fdbd80de9da338897e9f1"
-resolved_reference = "5cfcc0b5fe2befd18a1fdbd80de9da338897e9f1"
+url = "https://github.com/husqvarnagroup/smart-garden-lemonbeat-python.git"
+reference = "30e39a18c2cd42efe2c02ebd8d5bee1f2592e218"
+resolved_reference = "30e39a18c2cd42efe2c02ebd8d5bee1f2592e218"
 
 [[package]]
 name = "packaging"
@@ -399,4 +399,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<3.15"
-content-hash = "d81e7dd53ca044e3944a067dbbc18a5240afd01b3899bd2854cd084f7071e110"
+content-hash = "23fdc5acb18004404f95a7cb0326c18745dd1aa251aaf4041844a52392b16b47"
