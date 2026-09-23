@@ -53,6 +53,52 @@ jobs:
       - name: Check Rust format
         run: cargo fmt --all -- --check
 
+  component_tests:
+    name: Component Tests
+    runs-on: ubuntu-24.04 # older Ubuntu due to compatibility of dependencies
+    steps:
+      - name: Install system dependencies
+        run: |
+          sudo apt update \
+          && sudo apt install --yes --no-install-recommends \
+            bubblewrap \
+            inotify-tools \
+            libdbus-1-dev \
+            libcairo2-dev \
+            libgirepository-1.0-dev \
+            pkg-config
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@ecabd13d1c56bd1345c230e542e9144811ad706f # v2.0.0
+        with:
+          toolchain: 1.75
+          override: true
+      - name: Check Rust version
+        run: rustc --version
+      - name: Build
+        run: cargo build --verbose
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: 3.11.9 # pinned due to compatibility of dependencies and of Ubuntu 24.04
+          update-environment: true
+      - name: Pin pip # pinned due to compatibility of dependencies and of Ubuntu 24.04
+        run: python -m pip install --disable-pip-version-check "pip==24.0"
+      - uses: abatilo/actions-poetry@3765cf608f2d4a72178a9fc5b918668e542b89b1 # v4.0.0
+        with:
+          poetry-version: 2.5.1
+      - name: Install component tests
+        run: poetry install
+        working-directory: ./tests
+      - name: Prepare component-test networking (workaround for bublewrap)
+        run: |
+          sudo install -d -m 755 /run/netns
+          sudo chmod 755 /run/netns
+      - name: Run component tests
+        run: CI_GIMMEROOT=1 poetry run ./scripts/pytest -s --log-cli-level=DEBUG --full-trace --reruns=2
+        working-directory: ./tests
 
   lint:
     name: Lint

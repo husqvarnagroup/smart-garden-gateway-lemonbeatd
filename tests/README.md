@@ -51,7 +51,7 @@ steps so they won't work in a network namespace.
 ### setup virtualenv
 
 ```bash
-poetry install --no-root
+poetry install
 ```
 
 ## Usage (`run_ci`)
