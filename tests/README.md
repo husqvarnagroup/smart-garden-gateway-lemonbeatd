@@ -11,7 +11,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 For Ubuntu:
 
 ```bash
-apt install bubblewrap libgirepository-1.0-dev inotify-tools
+apt install bubblewrap inotify-tools
 ```
 
 ## AppArmor Rule
@@ -51,7 +51,7 @@ steps so they won't work in a network namespace.
 ### setup virtualenv
 
 ```bash
-poetry install --no-root
+poetry install
 ```
 
 ## Usage (`run_ci`)
