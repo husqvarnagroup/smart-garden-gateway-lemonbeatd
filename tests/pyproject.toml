@@ -17,10 +17,10 @@ crc = "^1.2"
 lemonbeat = { git = "https://github.com/husqvarnagroup/smart-garden-lemonbeat-python.git", rev = "30e39a18c2cd42efe2c02ebd8d5bee1f2592e218" }
 lbfwimg = { path = "../lbfwimg" }
 scapy = "^2.5.0"
-pytest = "^6.2.5"
-pytest-rerunfailures = "^10.3"
-pytest-timeout = "^2.0.1"
-pytest-repeat = "^0.9.1"
+pytest = "^8.3"
+pytest-rerunfailures = "^14.0"
+pytest-timeout = "^2.3.1"
+pytest-repeat = "^0.9.3"
 dbus-next = "^0.2.3"
 pytz = "^2024.2"
 setuptools = "<78" # needs to be pinned for CI on GitHub actions
