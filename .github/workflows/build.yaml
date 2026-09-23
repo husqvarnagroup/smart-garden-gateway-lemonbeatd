@@ -77,4 +77,9 @@ jobs:
       - name: Run component tests
         run: CI_GIMMEROOT=1 poetry run ./scripts/pytest -s --log-cli-level=DEBUG --full-trace --reruns=2
         working-directory: ./tests
+      - name: Dump AppArmor audit log on failure
+        if: failure()
+        run: |
+          sudo sysctl kernel.apparmor_restrict_unprivileged_userns || true
+          sudo dmesg --ctime | grep -i apparmor || echo "no apparmor lines in dmesg"
 
