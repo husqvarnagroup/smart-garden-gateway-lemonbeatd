@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: 2026 GARDENA GmbH
+# SPDX-FileCopyrightText: 2026 Reto Schneider
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: Build project
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: read
+
+jobs:
+  build:
+    name: Compile and Test
+    runs-on: ubuntu-26.04
+    strategy:
+      matrix:
+        rust: ["1.75", "1.94"]  # Rust versions for Yocto Scarthgap and Wrynose
+    steps:
+      - name: Install system dependencies
+        run: >
+          sudo apt update
+          && sudo apt install --yes --no-install-recommends libdbus-1-dev
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@ecabd13d1c56bd1345c230e542e9144811ad706f # v2.0.0
+        with:
+          toolchain: ${{ matrix.rust }}
+          override: true
+          components: rustfmt, clippy
+      - name: Check Rust version
+        run: rustc --version
+      - name: Build
+        run: cargo build --verbose
+      - name: Unit tests
+        run: cargo test --verbose
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Check Rust format
+        run: cargo fmt --all -- --check
+
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libdbus-1-dev libgirepository1.0-dev
+
+      - name: Install cargo binstall
+        run: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+
+      - name: Check Cargo.toml format
+        run: |
+          cargo binstall cargo-sort@1.0.9 --no-confirm --disable-strategies compile
+          cargo sort --check --check-format --workspace
+
+      - name: Find typos
+        run: |
+          cargo binstall typos-cli@1.29.5 --no-confirm --disable-strategies compile
+          typos
+
+      - name: Lint shell scripts
+        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # 2.0.0
+        with:
+          scandir: '.'
+
+      - name: REUSE Compliance Check
+        uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6.0.0
+
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@f714bf454f350590f4a24c3ddb1aef02c35bf5b6 # v3.97.5
+        with:
+          extra_args: --results=verified,unknown
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+        with:
+          extra_args: --all-files
+
+      - name: Run zizmor
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
