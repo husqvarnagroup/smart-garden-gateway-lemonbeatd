@@ -14,7 +14,7 @@ python = ">=3.12,<3.15"
 
 [tool.poetry.group.dev.dependencies]
 crc = "^1.2"
-lemonbeat = { git = "git@ssh.dev.azure.com:v3/HQV-Gardena/SG-Embedded/sg-lemonbeat-python", rev = "5cfcc0b5fe2befd18a1fdbd80de9da338897e9f1" }
+lemonbeat = { git = "https://github.com/husqvarnagroup/smart-garden-lemonbeat-python.git", rev = "30e39a18c2cd42efe2c02ebd8d5bee1f2592e218" }
 lbfwimg = { path = "../lbfwimg" }
 scapy = "^2.5.0"
 pytest = "^6.2.5"
