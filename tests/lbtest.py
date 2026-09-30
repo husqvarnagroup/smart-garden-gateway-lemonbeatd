@@ -1554,27 +1554,37 @@ def ipc_ddl_init(id, ipc_cmd_sock, slot, data, content_tag, checksum=None):
 
 
 def assert_includable_device(ipc_event_sock, dev, op, started, completed, error):
-    idev = wait_for_ipc_sock_event(ipc_event_sock)
+    deadline = time.monotonic() + 60
 
-    path = idev["entity"]["path"]
-    id = re.fullmatch("includable_device/([0-9]+)", path).group(1)
+    while time.monotonic() < deadline:
+        idev = wait_for_ipc_sock_event(ipc_event_sock)
 
-    assert idev["entity"]["service"] == "lemonbeatd"
+        path = idev["entity"].get("path","")
+        # Ignore unrelated events generated during inclusion/exclusion.
+        match_includable_device = re.fullmatch("includable_device/([0-9]+)", path)
+        if not match_includable_device:
+            continue
+        id = match_includable_device.group(1)
 
-    assert idev["metadata"]["source"] == "lemonbeatd"
-    assert isinstance(idev["metadata"]["sequence"], int)
-    assert idev["metadata"]["sequence"] >= 0
+        assert idev["entity"]["service"] == "lemonbeatd"
 
-    assert idev["op"] == op
+        assert idev["metadata"]["source"] == "lemonbeatd"
+        assert isinstance(idev["metadata"]["sequence"], int)
+        assert idev["metadata"]["sequence"] >= 0
 
-    payload = idev["payload"]
-    assert get_ipc_value(payload, "identifier", "vs") == dev.identifier()
-    assert get_ipc_value(payload, "protocol", "vi") == 2
-    assert get_ipc_value(payload, "inclusion_started", "vb") == started
-    assert get_ipc_value(payload, "inclusion_completed", "vb") == completed
-    assert get_ipc_value(payload, "inclusion_error", "vi") == error
+        assert idev["op"] == op
 
-    return id
+        payload = idev["payload"]
+        assert get_ipc_value(payload, "identifier", "vs") == dev.identifier()
+        assert get_ipc_value(payload, "protocol", "vi") == 2
+        assert get_ipc_value(payload, "inclusion_started", "vb") == started
+        assert get_ipc_value(payload, "inclusion_completed", "vb") == completed
+        assert get_ipc_value(payload, "inclusion_error", "vi") == error
+
+        return id
+
+    raise AssertionError("Timed out waiting for the expected includable-device event")
+
 
 
 def assert_ipc_endpoint(dev, ipc_event_sock, update_result=0, utc_offset=""):
