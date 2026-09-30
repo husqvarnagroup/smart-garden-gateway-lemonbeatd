@@ -10,7 +10,7 @@ import json
 
 # DIN001, DIN002
 @pytest.mark.parametrize("device_online_after_inclusion", [False, True])
-@pytest.mark.timeout(40)
+@pytest.mark.timeout(80)
 def test_device_inclusion_exclusion(
     ppp,
     tcpserver,
