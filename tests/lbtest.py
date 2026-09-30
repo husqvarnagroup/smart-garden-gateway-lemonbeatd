@@ -238,6 +238,9 @@ class Lemonbeatd:
                     if events & selectors.EVENT_READ:
                         data = self.ipc_event_sock.raw_socket.recv(1024 * 16 * 16)
 
+                        if not data:
+                            break
+
                         try:
                             data_pretty = ""
                             for d in data.strip().split(b"\n"):
