@@ -5,6 +5,7 @@
 import lbtest
 import json
 import logging
+import time
 
 logging.basicConfig(level=logging.INFO)
 
@@ -26,6 +27,7 @@ def test_wakeup(ppp, tcpserver, lemonbeatd, notify_socket, socket_cleanup):
         tcpserver, ipc_cmd_sock, ipc_event_sock, notify_socket, socket_cleanup, dev0
     )
     logging.info("test_wakeup: device included")
+    time.sleep(0.3)  # Let device settle after inclusion
 
     request_json = json.dumps(
         [
@@ -60,6 +62,7 @@ def test_wakeup(ppp, tcpserver, lemonbeatd, notify_socket, socket_cleanup):
     logging.info("test_wakeup: asserting val_set for first cycle")
     dev0.assert_val_set("command", 11.0)
     logging.info("test_wakeup: first command cycle complete")
+    time.sleep(0.2)  # Allow device to settle between cycles
 
     logging.info("test_wakeup: second command cycle starting")
     ipc_cmd_sock.send(request_json)

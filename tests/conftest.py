@@ -367,8 +367,9 @@ def socket_cleanup():
 
     # some of the `close` functions check if there is unexpected pending data.
     # increase the chance of catching those by waiting a bit before closing the
-    # sockets.
-    time.sleep(0.1)
+    # sockets. Increased to 0.5s to allow devices to settle after state transitions
+    # and reduce race conditions during cleanup.
+    time.sleep(0.5)
 
     for s in sockets:
         logging.debug(f"close socket {s}")
