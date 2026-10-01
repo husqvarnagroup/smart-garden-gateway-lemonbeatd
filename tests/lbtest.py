@@ -803,9 +803,13 @@ class Device:
 
         assert not has_pending, f"Device {self.addr} has pending data at close time"
 
-    def recvfrom(self, service):
-        logging.info(f"recvfrom: waiting for service {service.name} (port {service.value}) on device {self.addr}")
-        packet = self.ppp.recv_udp()
+    def recvfrom(self, service, timeout=15):
+        logging.info(f"recvfrom: waiting for service {service.name} (port {service.value}) on device {self.addr} (timeout={timeout}s)")
+        packet = self.ppp.recv_udp(timeout=timeout)
+
+        if packet is None:
+            raise TimeoutError(f"Timeout waiting for service {service.name} (port {service.value}) after {timeout}s")
+
         logging.debug(f"received: {packet.show(dump=True)}")
 
         # TODO

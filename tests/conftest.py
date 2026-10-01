@@ -71,7 +71,10 @@ class Ppp:
     def send(self, packet):
         self.interface.send(packet)
 
-    def recv(self, filter=filter_accept_all, blocking=True):
+    def recv(self, filter=filter_accept_all, blocking=True, timeout=None):
+        import time
+        deadline = time.monotonic() + timeout if timeout is not None else None
+
         for index, packet in enumerate(self.rxqueue):
             if filter(packet):
                 self.rxqueue.pop(index)
@@ -80,6 +83,10 @@ class Ppp:
                 return packet
 
         while True:
+            if deadline is not None and time.monotonic() >= deadline:
+                logging.error(f"recv: timeout waiting for packet (waited {timeout}s)")
+                return None
+
             if not blocking:
                 if self.selector is None:
                     return None
@@ -87,6 +94,14 @@ class Ppp:
                     return None
                 if len(self.selector.select(0)) == 0:
                     return None
+
+            select_timeout = None
+            if deadline is not None:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    logging.error(f"recv: timeout waiting for packet (waited {timeout}s)")
+                    return None
+                select_timeout = remaining
 
             packet = self.interface.recv()
             # The Linux kernel sends those and we're generally not interested
@@ -103,18 +118,18 @@ class Ppp:
             self.rxqueue.append(packet)
 
     def recv_tcp(self):
-        return self.recv(lambda packet: TCP in packet)
+        return self.recv(lambda packet: TCP in packet, timeout=15)
 
-    def recv_udp(self):
-        logging.info("recv_udp: waiting for UDP packet")
-        result = self.recv(lambda packet: UDP in packet)
+    def recv_udp(self, timeout=15):
+        logging.info(f"recv_udp: waiting for UDP packet (timeout={timeout}s)")
+        result = self.recv(lambda packet: UDP in packet, timeout=timeout)
         if result:
             src = result[IPv6].src if IPv6 in result else "unknown"
             sport = result[UDP].sport if UDP in result else "unknown"
             dport = result[UDP].dport if UDP in result else "unknown"
             logging.info(f"recv_udp: received packet from {src}:{sport} to port {dport}")
         else:
-            logging.info("recv_udp: no UDP packet received (blocking=True should not return None)")
+            logging.error(f"recv_udp: timeout waiting for UDP packet after {timeout}s")
         return result
 
 
