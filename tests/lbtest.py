@@ -761,7 +761,13 @@ def assert_xml(actual, needle):
     xml_remove_blanks(needle)
     xml_remove_comments(needle)
 
-    assert actual.toxml() == needle.toxml(), f"\n{actual.toxml()}\nvs\n{needle.toxml()}"
+    actual_xml = actual.toxml()
+    needle_xml = needle.toxml()
+    if actual_xml != needle_xml:
+        logging.error(f"assert_xml mismatch:")
+        logging.error(f"  actual: {actual_xml[:500]}")
+        logging.error(f"  expected: {needle_xml[:500]}")
+    assert actual_xml == needle_xml, f"\n{actual_xml}\nvs\n{needle_xml}"
 
 
 class PartnerInformation:
@@ -787,18 +793,28 @@ class Device:
 
     def close(self):
         # just to verify there isn't data that we didn't test
+        logging.info(f"Device.close: checking for pending data on {self.addr}")
         has_pending = self.has_pending_data()
 
-        assert not has_pending
+        if has_pending:
+            logging.error(f"Device.close: UNEXPECTED pending data found on {self.addr}")
+        else:
+            logging.info(f"Device.close: no pending data on {self.addr}")
+
+        assert not has_pending, f"Device {self.addr} has pending data at close time"
 
     def recvfrom(self, service):
+        logging.info(f"recvfrom: waiting for service {service.name} (port {service.value}) on device {self.addr}")
         packet = self.ppp.recv_udp()
         logging.debug(f"received: {packet.show(dump=True)}")
 
         # TODO
         # assert packet[IPv6].src == PPP_ADDR_DEFAULT_GATEWAY
-        assert packet[IPv6].dst == self.addr
-        assert packet[UDP].dport == service
+        actual_dport = packet[UDP].dport
+        logging.info(f"recvfrom: got packet for service port {actual_dport}, expected {service.value} ({service.name})")
+
+        assert packet[IPv6].dst == self.addr, f"packet destination {packet[IPv6].dst} != {self.addr}"
+        assert packet[UDP].dport == service, f"service port mismatch: got {actual_dport}, expected {service.value}"
 
         address = (packet[IPv6].src, packet[UDP].sport)
 
@@ -808,7 +824,8 @@ class Device:
         xml_remove_blanks(data)
         xml_remove_comments(data)
 
-        logging.debug(f"[{str(service)}][{address}] received: {data.toprettyxml()}")
+        xml_str = data.toprettyxml()
+        logging.info(f"[{str(service)}][{address}] received from service {service.name}: {xml_str[:200]}")
 
         return (data, address)
 
@@ -1135,7 +1152,7 @@ class Device:
     def assert_val_set(self, name, expected_value, gotosleep=0):
         gotosleep = self.gotosleep_str(gotosleep)
 
-        logging.info("assert_val_set")
+        logging.info(f"assert_val_set: expecting value '{name}' = {expected_value}")
         value = find(self.values, lambda v: v.name == name)
 
         if value.type == "hex":
@@ -1147,7 +1164,9 @@ class Device:
         else:
             raise Exception("unsupported type")
 
+        logging.info(f"assert_val_set: calling recvfrom for SERVICE.VALUE")
         data, addr = self.recvfrom(Service.VALUE)
+        logging.info(f"assert_val_set: received value message, checking if it matches")
         assert_xml(
             data,
             f"""<?xml version="1.0" ?>
@@ -1244,7 +1263,7 @@ class Device:
 
     ## UTC001
     def assert_utc_update(self, offset=None, drop_status=False, final_gotosleep=0):
-        logging.info("assert_utc_update")
+        logging.info("assert_utc_update starting")
 
         if offset is None:
             offset = 0
@@ -1252,7 +1271,17 @@ class Device:
         gotosleep = self.gotosleep_str(20000)
         final_gotosleep = self.gotosleep_str(final_gotosleep)
 
+        logging.info(f"assert_utc_update: expecting calendar_set_timezone with offset={offset}, gotosleep={gotosleep}")
         data, addr = self.recvfrom(Service.CALENDAR)
+        logging.info(f"assert_utc_update: received calendar message from {addr}")
+
+        # Extract the actual element to log what we got
+        device = data.getElementsByTagName("device")
+        if device.length > 0:
+            children = device.item(0).childNodes
+            child_names = [node.nodeName for node in children if node.nodeType == node.ELEMENT_NODE]
+            logging.info(f"assert_utc_update: received calendar elements: {child_names}")
+
         assert_xml(
             data,
             f"""<?xml version="1.0" ?>
@@ -1263,6 +1292,7 @@ class Device:
                </network>
             """,
         )
+        logging.info(f"assert_utc_update: calendar_set_timezone verified")
 
         if not drop_status:
             self.send_status(1, 13, 13)
@@ -1786,7 +1816,9 @@ def include_device(
 
     assert dev.devdir_exists()
 
+    logging.info("include_device: calling assert_utc_update")
     dev.assert_utc_update()
+    logging.info("include_device: assert_utc_update completed")
     assert_utc_offset_change(ipc_event_sock, "UTC+00:00")
 
     # DCS010: newly included device does not trigger ping

@@ -75,6 +75,8 @@ class Ppp:
         for index, packet in enumerate(self.rxqueue):
             if filter(packet):
                 self.rxqueue.pop(index)
+                if UDP in packet:
+                    logging.info(f"recv: found matching UDP packet in queue from {packet[IPv6].src}:{packet[UDP].sport} to port {packet[UDP].dport}")
                 return packet
 
         while True:
@@ -91,15 +93,29 @@ class Ppp:
             if ICMPv6ND_RS in packet:
                 continue
             if filter(packet):
+                if UDP in packet:
+                    logging.info(f"recv: received matching UDP packet from {packet[IPv6].src}:{packet[UDP].sport} to port {packet[UDP].dport}")
                 return packet
 
+            # Log packets that don't match the filter
+            if UDP in packet:
+                logging.info(f"recv: queuing non-matching UDP packet from {packet[IPv6].src}:{packet[UDP].sport} to port {packet[UDP].dport}, queue size now: {len(self.rxqueue) + 1}")
             self.rxqueue.append(packet)
 
     def recv_tcp(self):
         return self.recv(lambda packet: TCP in packet)
 
     def recv_udp(self):
-        return self.recv(lambda packet: UDP in packet)
+        logging.info("recv_udp: waiting for UDP packet")
+        result = self.recv(lambda packet: UDP in packet)
+        if result:
+            src = result[IPv6].src if IPv6 in result else "unknown"
+            sport = result[UDP].sport if UDP in result else "unknown"
+            dport = result[UDP].dport if UDP in result else "unknown"
+            logging.info(f"recv_udp: received packet from {src}:{sport} to port {dport}")
+        else:
+            logging.info("recv_udp: no UDP packet received (blocking=True should not return None)")
+        return result
 
 
 @pytest.fixture
