@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import asyncio
 import logging
 import threading
 import time
@@ -9,11 +10,10 @@ import random
 from scapy.all import TCP, IPv6, ICMPv6ND_RS, Raw, UDP
 import selectors
 
-import dbus
-import dbus.mainloop.glib
-import dbus.service
+from dbus_next import BusType
+from dbus_next.aio import MessageBus
+from dbus_next.service import ServiceInterface, method, signal
 import pytest
-from gi.repository import GLib
 import tz
 import gc
 from scapy.all import TunTapInterface
@@ -71,13 +71,22 @@ class Ppp:
     def send(self, packet):
         self.interface.send(packet)
 
-    def recv(self, filter=filter_accept_all, blocking=True):
+    def recv(self, filter=filter_accept_all, blocking=True, timeout=None):
+        import time
+        deadline = time.monotonic() + timeout if timeout is not None else None
+
         for index, packet in enumerate(self.rxqueue):
             if filter(packet):
                 self.rxqueue.pop(index)
+                if UDP in packet:
+                    logging.info(f"recv: found matching UDP packet in queue from {packet[IPv6].src}:{packet[UDP].sport} to port {packet[UDP].dport}")
                 return packet
 
         while True:
+            if deadline is not None and time.monotonic() >= deadline:
+                logging.error(f"recv: timeout waiting for packet (waited {timeout}s)")
+                return None
+
             if not blocking:
                 if self.selector is None:
                     return None
@@ -86,20 +95,42 @@ class Ppp:
                 if len(self.selector.select(0)) == 0:
                     return None
 
+            select_timeout = None
+            if deadline is not None:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    logging.error(f"recv: timeout waiting for packet (waited {timeout}s)")
+                    return None
+                select_timeout = remaining
+
             packet = self.interface.recv()
             # The Linux kernel sends those and we're generally not interested
             if ICMPv6ND_RS in packet:
                 continue
             if filter(packet):
+                if UDP in packet:
+                    logging.info(f"recv: received matching UDP packet from {packet[IPv6].src}:{packet[UDP].sport} to port {packet[UDP].dport}")
                 return packet
 
+            # Log packets that don't match the filter
+            if UDP in packet:
+                logging.info(f"recv: queuing non-matching UDP packet from {packet[IPv6].src}:{packet[UDP].sport} to port {packet[UDP].dport}, queue size now: {len(self.rxqueue) + 1}")
             self.rxqueue.append(packet)
 
     def recv_tcp(self):
-        return self.recv(lambda packet: TCP in packet)
+        return self.recv(lambda packet: TCP in packet, timeout=15)
 
-    def recv_udp(self):
-        return self.recv(lambda packet: UDP in packet)
+    def recv_udp(self, timeout=15):
+        logging.info(f"recv_udp: waiting for UDP packet (timeout={timeout}s)")
+        result = self.recv(lambda packet: UDP in packet, timeout=timeout)
+        if result:
+            src = result[IPv6].src if IPv6 in result else "unknown"
+            sport = result[UDP].sport if UDP in result else "unknown"
+            dport = result[UDP].dport if UDP in result else "unknown"
+            logging.info(f"recv_udp: received packet from {src}:{sport} to port {dport}")
+        else:
+            logging.error(f"recv_udp: timeout waiting for UDP packet after {timeout}s")
+        return result
 
 
 @pytest.fixture
@@ -336,47 +367,74 @@ def socket_cleanup():
 
     # some of the `close` functions check if there is unexpected pending data.
     # increase the chance of catching those by waiting a bit before closing the
-    # sockets.
-    time.sleep(0.1)
+    # sockets. Increased to 0.5s to allow devices to settle after state transitions
+    # and reduce race conditions during cleanup.
+    time.sleep(0.5)
 
     for s in sockets:
         logging.debug(f"close socket {s}")
         s.close()
 
 
-class Timedate(dbus.service.Object):
-    @dbus.service.signal("org.freedesktop.DBus.Properties")
+class PropertiesInterface(ServiceInterface):
+    def __init__(self):
+        super().__init__("org.freedesktop.DBus.Properties")
+
+    @signal(name="PropertiesChanged")
     def PropertiesChanged(self):
         logging.debug("raised PropertiesChanged signal")
-        pass
 
-    @dbus.service.method(
-        "org.freedesktop.timedate1", in_signature="sb", out_signature=""
-    )
-    def SetTimezone(self, timezone, interactive):
+
+class TimedateInterface(ServiceInterface):
+    def __init__(self, properties_iface):
+        super().__init__("org.freedesktop.timedate1")
+        self._properties_iface = properties_iface
+
+    @method()
+    def SetTimezone(self, timezone: "s", interactive: "b"):  # noqa: F821
         logging.debug(f"SetTimezone({timezone}, {interactive})")
-        self.PropertiesChanged()
+        self._properties_iface.PropertiesChanged()
 
 
-def run_glib_mainloop():
-    mainloop = GLib.MainLoop()
-    mainloop.run()
+class Timedate:
+    """Test-facing handle. Schedules signal emission on the bus' event
+    loop, since pytest calls this from a different thread."""
+
+    def __init__(self, loop, properties_iface):
+        self._loop = loop
+        self._properties_iface = properties_iface
+
+    def PropertiesChanged(self):
+        self._loop.call_soon_threadsafe(self._properties_iface.PropertiesChanged)
 
 
 class DBusServices:
-    def __init__(self, bus):
-        self.timedate_busname = dbus.service.BusName("org.freedesktop.timedate1", bus)
-        self.timedate = Timedate(bus, "/org/freedesktop/timedate1")
+    def __init__(self, timedate):
+        self.timedate = timedate
+
+
+def run_event_loop(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
 
 
 @pytest.fixture(scope="session")
 def dbussvc():
-    dbus.mainloop.glib.threads_init()
-    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    loop = asyncio.new_event_loop()
+    threading.Thread(target=run_event_loop, args=(loop,), daemon=True).start()
 
-    system_bus = dbus.SystemBus(private=True)
-    svcs = DBusServices(system_bus)
+    async def setup():
+        bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
+        properties_iface = PropertiesInterface()
+        timedate_iface = TimedateInterface(properties_iface)
+        bus.export("/org/freedesktop/timedate1", properties_iface)
+        bus.export("/org/freedesktop/timedate1", timedate_iface)
+        await bus.request_name("org.freedesktop.timedate1")
+        return properties_iface
 
-    threading.Thread(target=run_glib_mainloop, daemon=True).start()
+    properties_iface = asyncio.run_coroutine_threadsafe(setup(), loop).result()
+    svcs = DBusServices(Timedate(loop, properties_iface))
 
     yield svcs
+
+    loop.call_soon_threadsafe(loop.stop)
