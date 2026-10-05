@@ -784,6 +784,7 @@ class Device:
 
     def close(self):
         # just to verify there isn't data that we didn't test
+        logging.info(f"Device.close: checking for pending data on {self.addr}")
         has_pending = self.has_pending_data()
 
         assert not has_pending
@@ -1144,7 +1145,9 @@ class Device:
         else:
             raise Exception("unsupported type")
 
+        logging.info(f"assert_val_set: calling recvfrom for SERVICE.VALUE")
         data, addr = self.recvfrom(Service.VALUE)
+        logging.info(f"assert_val_set: received value message, checking if it matches")
         assert_xml(
             data,
             f"""<?xml version="1.0" ?>
@@ -1249,7 +1252,9 @@ class Device:
         gotosleep = self.gotosleep_str(20000)
         final_gotosleep = self.gotosleep_str(final_gotosleep)
 
+        logging.info(f"assert_utc_update: expecting calendar_set_timezone with offset={offset}, gotosleep={gotosleep}")
         data, addr = self.recvfrom(Service.CALENDAR)
+        logging.info(f"assert_utc_update: received calendar message from {addr}")
         assert_xml(
             data,
             f"""<?xml version="1.0" ?>
@@ -1260,6 +1265,7 @@ class Device:
                </network>
             """,
         )
+        logging.info(f"assert_utc_update: calendar_set_timezone verified")
 
         if not drop_status:
             self.send_status(1, 13, 13)
@@ -1783,7 +1789,9 @@ def include_device(
 
     assert dev.devdir_exists()
 
+    logging.info("include_device: calling assert_utc_update")
     dev.assert_utc_update()
+    logging.info("include_device: assert_utc_update completed")
     assert_utc_offset_change(ipc_event_sock, "UTC+00:00")
 
     # DCS010: newly included device does not trigger ping
