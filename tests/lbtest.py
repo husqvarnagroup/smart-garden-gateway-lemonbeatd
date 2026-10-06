@@ -188,7 +188,7 @@ class Lemonbeatd:
         logging.info("stop lemonbeatd")
 
         if (self.ipc_cmd_sock is not None) or (self.ipc_event_sock is not None):
-            time.sleep(0.1)
+            time.sleep(1.5)
         has_pending = self.has_pending_data()
 
         if self.ipc_cmd_sock is not None:
@@ -784,6 +784,8 @@ class Device:
 
     def close(self):
         # just to verify there isn't data that we didn't test
+        # wait for any pending packets to arrive after shutdown
+        time.sleep(0.2)
         logging.info(f"Device.close: checking for pending data on {self.addr}")
         has_pending = self.has_pending_data()
 
