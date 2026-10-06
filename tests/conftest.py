@@ -106,11 +106,11 @@ class Ppp:
 def ppp():
     try:
         ppp = Ppp("ppp0")
-        # time.sleep(5)
+        time.sleep(0.5)
 
         yield ppp
     finally:
-        # time.sleep(5)
+        time.sleep(0.5)
         ppp.close()
         del ppp
 
@@ -337,7 +337,7 @@ def socket_cleanup():
     # some of the `close` functions check if there is unexpected pending data.
     # increase the chance of catching those by waiting a bit before closing the
     # sockets.
-    time.sleep(0.1)
+    time.sleep(1.0)
 
     for s in sockets:
         logging.debug(f"close socket {s}")
