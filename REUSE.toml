@@ -2,6 +2,7 @@ version = 1
 
 [[annotations]]
 path = [
+  "tests/README.md",
   "test_data/lemonbeat/random_work/**/*.json",
   "test_data/storage/**/*.json",
 ]

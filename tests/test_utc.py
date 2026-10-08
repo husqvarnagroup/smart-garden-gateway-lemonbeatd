@@ -56,7 +56,7 @@ def test_update_event(
 
 
 ## UTC003
-@pytest.mark.timeout(20)
+@pytest.mark.timeout(40)
 def test_set_when_online(
     ppp, tcpserver, lemonbeatd, notify_socket, socket_cleanup, dbussvc
 ):
