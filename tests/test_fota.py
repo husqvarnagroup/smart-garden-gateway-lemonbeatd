@@ -196,7 +196,6 @@ def test_fota_upload_jump_to_end(
 
     # assert state 'download complete' and result 'idle'
     dev0.assert_fota_event(ipc_event_sock, 2, 0)
-    return dev0
 
 
 # NOTE: lemonbeatd will flash the images in descending order, not the order
