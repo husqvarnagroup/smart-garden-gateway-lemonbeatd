@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import asyncio
 import logging
 import threading
 import time
@@ -9,11 +10,10 @@ import random
 from scapy.all import TCP, IPv6, ICMPv6ND_RS, Raw, UDP
 import selectors
 
-import dbus
-import dbus.mainloop.glib
-import dbus.service
+from dbus_next import BusType
+from dbus_next.aio import MessageBus
+from dbus_next.service import ServiceInterface, method, signal
 import pytest
-from gi.repository import GLib
 import tz
 import gc
 from scapy.all import TunTapInterface
@@ -344,39 +344,65 @@ def socket_cleanup():
         s.close()
 
 
-class Timedate(dbus.service.Object):
-    @dbus.service.signal("org.freedesktop.DBus.Properties")
+class PropertiesInterface(ServiceInterface):
+    def __init__(self):
+        super().__init__("org.freedesktop.DBus.Properties")
+
+    @signal(name="PropertiesChanged")
     def PropertiesChanged(self):
         logging.debug("raised PropertiesChanged signal")
-        pass
 
-    @dbus.service.method(
-        "org.freedesktop.timedate1", in_signature="sb", out_signature=""
-    )
-    def SetTimezone(self, timezone, interactive):
+
+class TimedateInterface(ServiceInterface):
+    def __init__(self, properties_iface):
+        super().__init__("org.freedesktop.timedate1")
+        self._properties_iface = properties_iface
+
+    @method()
+    def SetTimezone(self, timezone: "s", interactive: "b"):  # noqa: F821
         logging.debug(f"SetTimezone({timezone}, {interactive})")
-        self.PropertiesChanged()
+        self._properties_iface.PropertiesChanged()
 
 
-def run_glib_mainloop():
-    mainloop = GLib.MainLoop()
-    mainloop.run()
+class Timedate:
+    """Test-facing handle. Schedules signal emission on the bus' event
+    loop, since pytest calls this from a different thread."""
+
+    def __init__(self, loop, properties_iface):
+        self._loop = loop
+        self._properties_iface = properties_iface
+
+    def PropertiesChanged(self):
+        self._loop.call_soon_threadsafe(self._properties_iface.PropertiesChanged)
 
 
 class DBusServices:
-    def __init__(self, bus):
-        self.timedate_busname = dbus.service.BusName("org.freedesktop.timedate1", bus)
-        self.timedate = Timedate(bus, "/org/freedesktop/timedate1")
+    def __init__(self, timedate):
+        self.timedate = timedate
+
+
+def run_event_loop(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
 
 
 @pytest.fixture(scope="session")
 def dbussvc():
-    dbus.mainloop.glib.threads_init()
-    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    loop = asyncio.new_event_loop()
+    threading.Thread(target=run_event_loop, args=(loop,), daemon=True).start()
 
-    system_bus = dbus.SystemBus(private=True)
-    svcs = DBusServices(system_bus)
+    async def setup():
+        bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
+        properties_iface = PropertiesInterface()
+        timedate_iface = TimedateInterface(properties_iface)
+        bus.export("/org/freedesktop/timedate1", properties_iface)
+        bus.export("/org/freedesktop/timedate1", timedate_iface)
+        await bus.request_name("org.freedesktop.timedate1")
+        return properties_iface
 
-    threading.Thread(target=run_glib_mainloop, daemon=True).start()
+    properties_iface = asyncio.run_coroutine_threadsafe(setup(), loop).result()
+    svcs = DBusServices(Timedate(loop, properties_iface))
 
     yield svcs
+
+    loop.call_soon_threadsafe(loop.stop)
