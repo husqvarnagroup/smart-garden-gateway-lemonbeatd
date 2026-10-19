@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   build:
-    name: Compile and Test
+    name: Build and Test
     runs-on: ubuntu-26.04
     strategy:
       matrix:
@@ -32,24 +32,31 @@ jobs:
         run: >
           sudo apt update
           && sudo apt install --yes --no-install-recommends libdbus-1-dev
-      - name: Checkout
+
+      - name: Check out repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
       - name: Set up Rust
         uses: actions-rust-lang/setup-rust-toolchain@ecabd13d1c56bd1345c230e542e9144811ad706f # v2.0.0
         with:
           toolchain: ${{ matrix.rust }}
           override: true
           components: rustfmt, clippy
+
       - name: Check Rust version
         run: rustc --version
+
       - name: Build
         run: cargo build --verbose
-      - name: Unit tests
+
+      - name: Run unit tests
         run: cargo test --verbose
-      - name: Clippy
+
+      - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
+
       - name: Check Rust format
         run: cargo fmt --all -- --check
 
@@ -62,7 +69,7 @@ jobs:
           sudo apt update
           && sudo apt install --yes --no-install-recommends libdbus-1-dev
 
-      - name: Checkout
+      - name: Check out repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -90,7 +97,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check out repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -99,14 +107,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libdbus-1-dev libgirepository1.0-dev
 
-      - uses: cargo-bins/cargo-binstall@422f3094be6a0843857aa008b499caaf6bce0da8 # v1.24.0
+      - name: Install cargo binstall
+        uses: cargo-bins/cargo-binstall@422f3094be6a0843857aa008b499caaf6bce0da8 # v1.24.0
         with:
           version: "1.24.0"
 
       - name: Check Cargo.toml format
         run: |
           cargo binstall cargo-sort@1.0.9 --no-confirm --disable-strategies compile
-          cargo sort --check --check-format --workspace
+          cargo sort --check --check-format --grouped
 
       - name: Find typos
         run: |
@@ -118,16 +127,19 @@ jobs:
         with:
           scandir: '.'
 
-      - name: REUSE Compliance Check
+      - name: Check REUSE compliance
         uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6.0.0
 
-      - name: Secret Scanning
+      - name: Scan for secrets
         uses: trufflesecurity/trufflehog@f714bf454f350590f4a24c3ddb1aef02c35bf5b6 # v3.97.5
         with:
           extra_args: --results=verified,unknown
 
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+
+      - name: Run pre-commit
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
         with:
           extra_args: --all-files
 
