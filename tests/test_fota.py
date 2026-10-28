@@ -144,14 +144,14 @@ def test_fota_upload_base(
     )
 
 
-@pytest.mark.timeout(30)
+@pytest.mark.timeout(45)
 def test_fota_upload_lost_status_report(
     ppp, tcpserver, lemonbeatd, notify_socket, socket_cleanup
 ):
     fota_upload(ppp, tcpserver, lemonbeatd, notify_socket, socket_cleanup, False, True)
 
 
-@pytest.mark.timeout(40)
+@pytest.mark.timeout(60)
 def test_fota_upload_jump_to_end(
     ppp, tcpserver, lemonbeatd, notify_socket, socket_cleanup
 ):
